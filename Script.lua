@@ -111,7 +111,7 @@ end
 --What I'm thinking to add is something like:
 
       else
-	  if GetTerraformParamPct("Water") == 85
+	  if GetTerraformParamPct("Water") >= 85
 
 	  then
 
