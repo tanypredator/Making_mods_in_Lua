@@ -67,7 +67,7 @@ function LandscapeLake:AdjustConsumption()
 
   local irrigation = self:GetIrrigationDebit()
 
---And self:GetIrrigationDebit() is probably = const.ResourceScale/2, and const.ResourceScale = const.Scale.Resources, and that is const.Scale.Resources I've never found.
+--And self:GetIrrigationDebit() is probably = const.ResourceScale/2, and const.ResourceScale = const.Scale.Resources, and what is const.Scale.Resources I've never found.
 
   if irrigation < self.water_consumption 
 
