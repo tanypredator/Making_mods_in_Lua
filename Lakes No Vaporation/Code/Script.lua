@@ -124,10 +124,14 @@ end
 --[[
 --[[
 function LandscapeLake:BuildingUpdate(delta, day, hour)
-  local income = (self.city:IsTechResearched("LakeVaporators") and self.base_water_consumption) or (self.working and self.water and self.water.consumption) or (0)
+  local income = self.city:IsTechResearched("LakeVaporators") and self.base_water_consumption or self.working and self.water and self.water.consumption or 0
+
 -- if LakeVaporators researched, income = self.base_water_consumption. If no, then if Lake is working, and if self.water is true (? if it is a number?), then income = self.water.consumption. And if Lake is not working, and self.water is false, then income = 0.
-  local water = income * delta / const.HourDuration
+  
+local water = income * delta / const.HourDuration
+
 --and delta is an argument of AddSoilQualityTick? O_o Or where from does it came?
+
   if g_RainDisaster then
     local daily_rain = MulDivRound(self.volume_max, self.rain_gain, 100)
     water = water + daily_rain * delta / const.DayDuration
