@@ -109,13 +109,22 @@ end
       else
 	  if GetTerraformParamPct("Water") >= 85
 	  then
+
 	PlaceObj("Effect_ModifyLabel", {
    	 Label = "LandscapeLake",
    	 Percent = -100,
   	  Prop = "water_consumption"
  	 })
-	  else
+-- or
+
         self.wc_modifier = ObjectModifier:new({
+          target = self,
+          prop = "water_consumption",
+          Percent = -100
+        })
+
+	  else
+	self.wc_modifier = ObjectModifier:new({
           target = self,
           prop = "water_consumption",
           amount = -excess
