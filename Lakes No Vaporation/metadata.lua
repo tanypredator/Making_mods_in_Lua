@@ -9,11 +9,11 @@ return PlaceObj("ModDef", {
 	--[[
 	"pops_any_uuid", "a61d60d3-ea45-4d67-94f3-0e3f866cb967",
 	--]]
-	"author", "Tanypredator",
+	"author", "Tanypredator and ChoGGi",
 	"lua_revision", 245618,
 	"code", {
 		"Code/Script.lua",
 	},
-	"description", [[The lakes stop loosing water at 85% of Water Terraforming level.]],
+	"description", [[The lakes stop loosing water at 80% of Water Terraforming level.]],
 	"TagTerraforming", true,
 })
