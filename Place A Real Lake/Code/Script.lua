@@ -16,7 +16,7 @@ properties = {
       name = T(11900, "Gradient Dist (hex)"),
       id = "gradient_dist",
       editor = "number",
-      default = 5,
+      default = 50,
       min = 0,
       max = 20,
       slider = true
@@ -60,7 +60,7 @@ properties = {
       name = T(12055, "Rain Gain (pct/sol)"),
       id = "rain_gain",
       editor = "number",
-      default = 5,
+      default = 50,
       min = 0,
       max = 100,
       slider = true
@@ -79,8 +79,8 @@ function InstantLake:GameInit()
 	-- init water level
 	self.water_obj = WaterFill:new()
 	local pos = self:GetPos()
-	self.level_min = pos:z()
-	self.level_max = level_min + 800
+	self.level_min = pos:z()-100
+	self.level_max = pos:z()+1000
 	self.water_obj:SetPos(pos)
 	ApplyAllWaterObjects()
 end
@@ -122,6 +122,15 @@ function InstantLake:SetVolume(vol)
   self.volume = new_volume
   Msg("LakeVolumeChanged", self)
   self:UpdateVisuals()
+	if self.volume < 30000 then
+	self.terraforming_boost_sol = 0
+	elseif self.volume >= 30000 and self.volume < 60000 then
+	self.terraforming_boost_sol = 30
+	elseif self.volume >= 60000 and self.volume < 90000 then
+	self.terraforming_boost_sol = 40
+	elseif self.volume >= 90000 then
+	self.terraforming_boost_sol = 50
+	end
   return true
 end
 
@@ -143,8 +152,26 @@ function InstantLake:UpdateVisuals()
   ApplyAllWaterObjects()
 end
 
+function InstantLake:AdjustLevel(dir, smaller)
+	local step = 100
+	if smaller then
+		step = step / 2
+	end
+	if dir == "down" then
+		step = step * -1
+	end
+	local level_new = self.level_max + step
+if level_new >= self.level_min then
+	self.level_max = level_new
+elseif level_new < self.level_min then
+	self.level_max = self.level_min
+end
+	self:UpdateVisuals()
+end
+
 function InstantLake:BuildingUpdate(delta, day, hour)
-    local water = 0
+    local income = 0
+  local water = income * delta / const.HourDuration
   if g_RainDisaster then
     local daily_rain = MulDivRound(self.volume_max, self.rain_gain, 100)
     water = water + daily_rain * delta / const.DayDuration
@@ -152,6 +179,7 @@ function InstantLake:BuildingUpdate(delta, day, hour)
   self:AddVolume(water)
   self:AddSoilQualityTick(delta)
 end
+
 
 function OnMsg.ClassesPostprocess()
 	if not BuildingTemplates.InstantLake then
@@ -177,8 +205,8 @@ function OnMsg.ClassesPostprocess()
 			"demolish_sinking", range(0, 0),
 			"demolish_debris", 0,
 			"auto_clear", true,
-			"terraforming_param","Water",
-			"terraforming_boost_sol",10,
+			"terraforming_param", "Water",
+			"terraforming_boost_sol", 0,
 		})
 	end
 --~ end
