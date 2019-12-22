@@ -1,0 +1,20 @@
+return PlaceObj('ModDef', {
+	'title', "Rain Lakes test",
+	'description', 'Adds a marker for a future lake. It will be filled with rains when they start. At the beginning water surface will look ugly because of "waves" effect. You can elevate the water level with a button, until it looks OK. The lake will improve the "Water" teraforming parameter and local soil quality, when the rains fill in enough water.\nThe mod is based on ChoGGi\'s "Place-a-Lake" mod, thanks to him and his tutorials!',
+	'image', "SS0007-1.png",
+	'last_changes', 'Fixed some mistakes, now the lakes should start to improve "Water" teraforming parameter immediately when the temperature reaches "liquid water" level.',
+	'id', "Rain Lakes test",
+	'pops_any_uuid', "3be2bc5b-5bed-4b93-88fb-1b26cb901053",
+	'author', "tanyfilina",
+	'version', 8,
+	'lua_revision', 233360,
+	'saved_with_revision', 245618,
+	'code', {
+		"Code/Script.lua",
+	},
+	'saved', 1569507950,
+	'screenshot1', "SS0007-1.png",
+	'screenshot2', "SS0008-1.png",
+	'screenshot3', "SS0009-1.png",
+	'TagGameplay', true,
+})
