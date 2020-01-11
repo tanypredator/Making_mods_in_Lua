@@ -1,18 +1,3 @@
-local Building_Template_Id = "GHGFactory"
-local function FixIcons()
-	-- local the building template
-	local bt = BuildingTemplates[Building_Template_Id]
-
-	-- building menu icon
-	bt.display_icon = "UI/Icons/Buildings/ghg_factory.tga"
-
-end
-
--- new games
-OnMsg.CityStart = FixIcons
--- saved games
-OnMsg.LoadGame = FixIcons
-
 math = {}
 
 local function CheckNum(x, name, arg)
