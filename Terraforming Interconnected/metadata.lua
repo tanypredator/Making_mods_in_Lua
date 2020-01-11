@@ -10,6 +10,8 @@ return PlaceObj('ModDef', {
 	'saved_with_revision', 249143,
 	'code', {
 		"Code/Script.lua",
+		"Code/ScriptInfopanel.lua",
+		"Code/ScriptBuildings.lua",
 	},
 	'saved', 1578643932,
 })

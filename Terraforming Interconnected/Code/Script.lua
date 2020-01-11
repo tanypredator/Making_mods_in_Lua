@@ -1,42 +1,38 @@
-function GreenHauseHeating ()
-local param = GetTerraformParam("Atmosphere")
-	if param >= 10000 then
-	local heating = param*0.01
-      ChangeTerraformParam("Temperature", heating)
-	end
+math = {}
+
+local function CheckNum(x, name, arg)
+    x = tonumber(x)
+    if x then
+        return x
+    else
+        print(str.error:format(arg or 1, name, str.nan))
+        return 0/0
+    end
 end
 
-function OnMsg.NewHour(hour)
- if hour == 8 then
-GreenHauseHeating ()
- end -- once a day at 8AM
-end 
+math.floor = rawget(_G, "floatfloor") or function(x)
+    x = CheckNum(x, str.floor)
 
-function FormatTerraformingValue(value)
-  local v = value * 100
-  local mul = MaxTerraformingValue
-  local d1 = MulDivTrunc(v, 10, mul) % 10
-  local d2 = MulDivTrunc(v, 100, mul) % 10
-  if d1 == 0 and d2 == 0 then
-    return T({
-      11723,
-      "<n>%",
-      n = v / mul
-    })
-  elseif d2 == 0 then
-    return T({
-      12199,
-      "<n>.<d1>%",
-      n = v / mul,
-      d1 = d1
-    })
-  else
-    return T({
-      11724,
-      "<n>.<d1><d2>%",
-      n = v / mul,
-      d1 = d1,
-      d2 = d2
-    })
-  end
+    return x - (x % 1)
+end
+
+math.min = Min
+
+function OnMsg.NewHour(hour)
+    --Get current terraforming values
+    local currentAir = GetTerraformParam("Atmosphere")
+    local currentHeat = GetTerraformParam("Temperature")
+    local currentWater = GetTerraformParam("Water")
+    local currentPlants = GetTerraformParam("Vegetation")
+
+    local airChange = floatfloor((currentPlants/24000)(150000/(currentPlants+50000)))10
+    local heatChange = floatfloor((currentAir0.7-currentHeat)/4800)10
+    local waterChange = floatfloor((currentHeat0.8-currentWater)/4800)10
+    local minEnv = math.min(currentAir,currentHeat,currentWater)
+    if minEnv < currentPlants then
+    local plantsChange = floatfloor(minEnv-Current)/48
+    ChangeTerraformParam("Atmosphere",airChange)
+    ChangeTerraformParam("Temperature",heatChange)
+    ChangeTerraformParam("Water",waterChange)
+    ChangeTerraformParam("Vegetation",plantsChange)
 end
