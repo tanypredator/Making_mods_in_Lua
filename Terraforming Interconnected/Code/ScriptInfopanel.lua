@@ -65,12 +65,8 @@ end]]
 function OnMsg.ClassesPostprocess()
 local AtmChange = Presets.TerraformingParam.Default["Atmosphere"]
 
-local idx = table.find(AtmChange.Factors, "AtmosphereChange")
-if idx then
-   if not type(AtmChange.Factors[idx]) == "function" then
-       AtmChange.Factors[idx]:delete()
-   end
-   table.remove(AtmChange.Factors, idx)
+if AtmChange.Factors.AtmosphereChange  then
+       AtmChange.Factors.AtmosphereChange:delete()
 end
 
 	table.insert(
@@ -92,19 +88,12 @@ end
 
 local TempChange = Presets.TerraformingParam.Default["Temperature"]
 
---[[local idx = table.find(AtmChange.Factors, "AtmosphereChange")
-if idx then
-   if not type(AtmChange.Factors[idx]) == "function" then
-       AtmChange.Factors[idx]:delete()
-   end
-   table.remove(AtmChange.Factors, idx)
-end]]
+if TempChange.Factors.TempChange  then
+       TempChange.Factors.TempChange:delete()
+end
 
-	table.insert(
-		TempChange,
-		#TempChange+1,
-		Factors = {
-	PlaceObj("TerraformingFactorItem", {
+TempChange.Factors = {
+		PlaceObj("TerraformingFactorItem", {
       "Id",
       "TemperatureChange",
       "display_name",
@@ -117,6 +106,5 @@ end]]
       end
     })
 }
-)
 
 end
