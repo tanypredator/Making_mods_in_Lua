@@ -1,5 +1,4 @@
---[[
-local GetParamDescription = function(name)
+--[[local GetParamDescription = function(name)
   local param = Presets.TerraformingParam.Default[name]
   if not param then
     return ""
@@ -61,56 +60,21 @@ local GetParamDescription = function(name)
     description[#description + 1] = param.description or nil
   end
   return table.concat(description, "")
-end
-]]
+end]]
 
-local AtmChange = TerraformingParam.Atmosphere[1]
 
-local idx = table.find(AtmChange, "RainLake_Adjust", true)
-if idx then
-   if not type(AtmChange[idx]) == "function" then
-       AtmChange[idx]:delete()
-   end
-   table.remove(AtmChange, idx)
-end
-
+local AtmChange = Presets.TerraformingParam.Default[Atmosphere]
 	table.insert(
-		AtmChange,
-		#AtmChange+1,
-		  Factors = {
-    PlaceObj("TerraformingFactorItem", {
-      "Id",
-      "AtmosphereDecay",
-      "display_name",
-      T(206931232175, "Loss of atmosphere"),
-      "units",
-      "PerSol",
-      "GetFactorValue",
-      function(self)
-        return GetSolAtmosphereDecay()
-      end
-    }),
-    PlaceObj("TerraformingFactorItem", {
-      "Id",
-      "MagneticShields",
-      "display_name",
-      T(277656568245, "Magnetic Shields"),
-      "GetFactorValue",
-      function(self)
-        return GetMagneticShieldsCount()
-      end
-    }),
-    PlaceObj("TerraformingFactorItem", {
+		AtmChange.Factors,
+		#AtmChange.Factors+1,
+		PlaceObj("TerraformingFactorItem", {
       "Id",
       "AtmosphereChange",
       "display_name",
       T(277656568245, "AtmosphereChange"),
       "GetFactorValue",
       function(self)
-        return FindAtmosphereChange()
+        return 25*FindAtmosphereChange()
       end
     })
-  }
 )
-
-end
