@@ -62,8 +62,17 @@
   return table.concat(description, "")
 end]]
 
+function OnMsg.ClassesPostprocess()
+local AtmChange = Presets.TerraformingParam.Default["Atmosphere"]
 
-local AtmChange = Presets.TerraformingParam.Default[Atmosphere]
+local idx = table.find(AtmChange.Factors, "AtmosphereChange")
+if idx then
+   if not type(AtmChange.Factors[idx]) == "function" then
+       AtmChange.Factors[idx]:delete()
+   end
+   table.remove(AtmChange.Factors, idx)
+end
+
 	table.insert(
 		AtmChange.Factors,
 		#AtmChange.Factors+1,
@@ -71,10 +80,43 @@ local AtmChange = Presets.TerraformingParam.Default[Atmosphere]
       "Id",
       "AtmosphereChange",
       "display_name",
-      T(0, "AtmosphereChange"),
+      T(0, "Atmosphere Change"),
+      "units",
+      "PerSol",
       "GetFactorValue",
       function(self)
-        return 25*FindAtmosphereChange()
+        return 0.24*FindAtmosphereChange()
       end
     })
 )
+
+local TempChange = Presets.TerraformingParam.Default["Temperature"]
+
+--[[local idx = table.find(AtmChange.Factors, "AtmosphereChange")
+if idx then
+   if not type(AtmChange.Factors[idx]) == "function" then
+       AtmChange.Factors[idx]:delete()
+   end
+   table.remove(AtmChange.Factors, idx)
+end]]
+
+	table.insert(
+		TempChange,
+		#TempChange+1,
+		Factors = {
+	PlaceObj("TerraformingFactorItem", {
+      "Id",
+      "TemperatureChange",
+      "display_name",
+      T(0, "Temperature Change"),
+      "units",
+      "PerSol",
+      "GetFactorValue",
+      function(self)
+        return 0.24*FindTemperatureChange()
+      end
+    })
+}
+)
+
+end
