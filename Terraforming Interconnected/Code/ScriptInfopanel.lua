@@ -71,7 +71,7 @@ local AtmChange = Presets.TerraformingParam.Default[Atmosphere]
       "Id",
       "AtmosphereChange",
       "display_name",
-      T(277656568245, "AtmosphereChange"),
+      T(0, "AtmosphereChange"),
       "GetFactorValue",
       function(self)
         return 25*FindAtmosphereChange()
