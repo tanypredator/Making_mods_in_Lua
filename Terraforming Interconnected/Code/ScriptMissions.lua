@@ -55,7 +55,34 @@
 
 function OnMsg.ClassesPostprocess()
 	local bt = POIPresets
+
 	bt.LaunchSpaceMirror.terraforming_changes = {}
+	--[[bt.LaunchSpaceMirror.PrerequisiteToCreate = function(self, city, idx)
+    city = city or UICity
+    return city:IsTechResearched(self.activation_by_tech_research)and true
+  end]]
+	bt.LaunchSpaceMirror.spawn_period = range(1, 5)
+	bt.LaunchSpaceMirror.consume_rocket = false
+	bt.LaunchSpaceMirror.rocket_required_resources = {
+    PlaceObj("ResourceAmount", {
+      "resource",
+      "Metals",
+      "amount",
+      250000
+    }),
+    PlaceObj("ResourceAmount", {
+      "resource",
+      "Fuel",
+      "amount",
+      100000
+    }),
+    PlaceObj("ResourceAmount", {
+      "resource",
+      "Electronics",
+      "amount",
+      100000
+    })
+  	}
 end
 
 function SpaceMirrorsCount()
