@@ -53,10 +53,10 @@
 })
 ]]
 
---[[function OnMsg.ClassesPostprocess()
-	local bt = POI
+function OnMsg.ClassesPostprocess()
+	local bt = POIPresets
 	bt.LaunchSpaceMirror.terraforming_changes = {}
-end]]
+end
 
 function SpaceMirrorsCount()
 return g_SpecialProjectCompleted and g_SpecialProjectCompleted.LaunchSpaceMirror or 0
