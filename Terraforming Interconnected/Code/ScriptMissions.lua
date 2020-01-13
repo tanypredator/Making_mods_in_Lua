@@ -55,7 +55,20 @@
 
 function OnMsg.ClassesPostprocess()
 	local bt = POIPresets
-
+	bt.LaunchSpaceMirror.OnCompletion = function(self, object, city, idx)
+    local id = "spacemirror" .. idx
+    city:SetLabelModifier("SolarPanelBase", id, Modifier:new({
+      prop = "electricity_production",
+      percent = 10,
+      id = "spacemirror" .. idx
+    }))
+	local max = SpaceMirrorsCount()
+	if max<10 then
+	self.rocket = false
+	local init = not g_SpecialProjectSpawnNextIdx[bt.LaunchSpaceMirror]
+	SpawnSpecialProject(LaunchSpaceMirror, UICity, init)
+	end
+  end
 	bt.LaunchSpaceMirror.terraforming_changes = {}
 	--[[bt.LaunchSpaceMirror.PrerequisiteToCreate = function(self, city, idx)
     city = city or UICity
