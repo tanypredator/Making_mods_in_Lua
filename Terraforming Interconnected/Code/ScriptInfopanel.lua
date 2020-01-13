@@ -37,7 +37,7 @@ PlaceObj("TerraformingFactorItem", {
       "PerSol",
       "GetFactorValue",
       function(self)
-        return 0.24*FindAtmosphereChange()
+        return 24*FindAtmosphereChange()
       end
     })
   }
@@ -54,7 +54,17 @@ TempChange.Factors = {
       "PerSol",
       "GetFactorValue",
       function(self)
-        return 0.24*FindTemperatureChange()
+        return 24*FindTemperatureChange()
+      end
+    }),
+    PlaceObj("TerraformingFactorItem", {
+      "Id",
+      "SpaceMirrors",
+      "display_name",
+      T(0, "Space Mirrors"),
+      "GetFactorValue",
+      function(self)
+        return SpaceMirrorsCount()
       end
     })
 }
@@ -71,7 +81,7 @@ WaterChange.Factors = {
       "PerSol",
       "GetFactorValue",
       function(self)
-        return 0.24*FindWaterChange()
+        return 24*FindWaterChange()
       end
     })
 }
@@ -88,7 +98,7 @@ VegChange.Factors = {
       "PerSol",
       "GetFactorValue",
       function(self)
-        return 0.24*FindVegetationChange()
+        return 24*FindVegetationChange()
       end
     })
 }
