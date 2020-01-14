@@ -141,6 +141,12 @@ High concentrations of nitrous oxides may cause toxic rain!]])
       "Funding",
       "amount",
       1000000000
+    }),
+	PlaceObj("ResourceAmount", {
+      "resource",
+      "Fuel",
+      "amount",
+      50000
     })
   }
 
