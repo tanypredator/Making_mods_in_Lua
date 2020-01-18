@@ -73,6 +73,7 @@ function OnMsg.ClassesPostprocess()
     })
   	}
 
+	bt.ImportGreenhouseGases.display_name = T(934945450792, "Import Atmospheric Gases")
 	bt.ImportGreenhouseGases.terraforming_changes = {
 	PlaceObj("TerraformingParamAmount", {
       "param",
