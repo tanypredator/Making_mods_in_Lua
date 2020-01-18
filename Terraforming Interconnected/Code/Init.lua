@@ -46,11 +46,20 @@ function RDM_ModGeoThermalPower:Init()
 		{self.buildings[1], self.techs[1]},
 	}
 	RDM_AddBuildingRules(self.rules_buildings)
-	
+	--[[function RDM_Controller:AddBuildingRules(rules)
+	for _, rule in ipairs(rules) do
+		table.insert(self.rules_building, rule)
+	end
+	end]]
 	self.rules_upgrades = { 
 		{self.upgrades[1], self.techs[1]},
 	}
 	RDM_AddUpgradeRules(self.rules_upgrades)
+	--[[function RDM_Controller:AddUpgradeRules(rules)
+	for _, rule in ipairs(rules) do
+		table.insert(self.rules_upgrade, rule)
+	end
+	end]]
 end
 
 
