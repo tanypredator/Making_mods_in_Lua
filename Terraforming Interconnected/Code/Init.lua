@@ -60,6 +60,8 @@ function RDM_ModGeoThermalPower:Init()
 		table.insert(self.rules_upgrade, rule)
 	end
 	end]]
+	-- rules are in Lua_RDM_Core.lua and there I'm lost O_O
+	
 end
 
 
