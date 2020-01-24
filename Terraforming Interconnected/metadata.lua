@@ -18,6 +18,8 @@ return PlaceObj('ModDef', {
 		"Code/Class_RDM_GeoPowerPlant.lua",
 		"Code/Init.lua",
 		"Code/SavegameFix.lua",
+		"Code/ScriptClasses.lua",
+
 	},
 	'saved', 1578910764,
 	'TagGameplay', true,

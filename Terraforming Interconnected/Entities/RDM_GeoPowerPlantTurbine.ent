@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity path="">
+	<state id="end">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh_ref ref="turbine"/>
+		<anim file="RDM_GeoPowerPlantTurbine_end.hgacl" duration="1666"/>
+		<bsphere value="0,-816,227,847"/>
+		<box min="-760,-1060,221" max="760,-740,279"/>
+	</state>
+	<state id="idle">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh_ref ref="turbine"/>
+		<anim file="RDM_GeoPowerPlantTurbine_idle.hgacl" duration="334"/>
+		<bsphere value="0,-815,226,846"/>
+		<box min="-757,-1057,221" max="757,-743,279"/>
+	</state>
+	<state id="start">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh_ref ref="turbine"/>
+		<anim file="RDM_GeoPowerPlantTurbine_start.hgacl" duration="1666"/>
+		<bsphere value="0,-817,227,848"/>
+		<box min="-760,-1060,221" max="760,-740,279"/>
+	</state>
+	<state id="working">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh_ref ref="turbine"/>
+		<anim file="RDM_GeoPowerPlantTurbine_working.hgacl" duration="3334" looping="1"/>
+		<bsphere value="0,-815,226,846"/>
+		<box min="-757,-1058,221" max="758,-742,279"/>
+	</state>
+	<mesh_description id="turbine">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh file="RDM_GeoPowerPlantTurbine_turbine.m.hgm"/>
+		<material file="RDM_GeoPowerPlantTurbine_turbine.mtl"/>
+		<bsphere value="0,-900,250,758"/>
+		<box min="-757,-1057,221" max="757,-743,279"/>
+	</mesh_description>
+</entity>

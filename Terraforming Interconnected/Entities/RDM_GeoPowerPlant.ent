@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity path="">
+	<state id="idle">
+		<mesh_ref ref="mesh"/>
+	</state>
+	<mesh_description id="mesh">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh file="RDM_GeoPowerPlant_mesh.m.hgm"/>
+		<material file="RDM_GeoPowerPlant_mesh.mtl"/>
+		<bsphere value="0,-129,-580,1676"/>
+		<box min="-1500,-1443,-1500" max="1500,1185,340"/>
+		<attach name="Autoattach" spot_note="att,RDM_GeoPowerPlantGenerator,show" spot_pos="0,0,0"/>
+		<attach name="Autoattach" spot_note="att,RDM_GeoPowerPlantTurbine,show" spot_pos="0,0,0"/>
+		<attach name="Construction" spot_pos="0,-1200,0"/>
+		<attach name="Door" spot_note="chain=1,waypoint=2" spot_pos="0,-1000,0" spot_scale="10000"/>
+		<attach name="Door" spot_note="chain=1,waypoint=1" spot_pos="0,-400,0" spot_scale="10000"/>
+		<attach name="Greatsteam" spot_pos="0,800,-600"/>
+		<attach name="Lifesupportgrid" spot_pos="-1500,-866,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Lifesupportgrid" spot_pos="-2000,0,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Lifesupportgrid" spot_pos="-1500,866,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Lifesupportgrid" spot_pos="1500,-866,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Lifesupportgrid" spot_pos="1500,866,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Lifesupportgrid" spot_pos="2000,0,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Resourcepile2" spot_pos="0,-1200,0"/>
+		<attach name="Steam" spot_pos="-600,-900,50" spot_rot="0.707107,0.000000,0.000000,90.0000"/>
+		<attach name="Steam" spot_pos="600,-875,40" spot_rot="0.707107,0.000000,0.000000,90.0000"/>
+		<attach name="Top" spot_pos="0,0,800"/>
+		<attach name="Tube" spot_pos="-1200,0,0"/>
+		<attach name="Tube" spot_pos="-1200,0,0" spot_rot="-0.000000,0.000000,-0.642787,80.0000"/>
+		<attach name="Tube" spot_pos="-1200,0,0" spot_rot="0.000000,0.000000,0.642787,80.0000"/>
+		<attach name="Tube" spot_pos="1200,0,0" spot_rot="0.000000,0.000000,-0.766044,100.0000"/>
+		<attach name="Tube" spot_pos="1200,0,0" spot_rot="0.000000,0.000000,0.766044,100.0000"/>
+		<attach name="Tube" spot_pos="1200,0,0" spot_rot="0.000000,0.000000,1.000000,180.0000"/>
+		<attach name="Workdrone" spot_pos="-1125,-650,0"/>
+		<attach name="Workdrone" spot_pos="-1125,650,0"/>
+		<attach name="Workdrone" spot_pos="1125,-650,0"/>
+		<attach name="Workdrone" spot_pos="1125,650,0"/>
+		<surf type="collision" name="001" points="-1460,0,100;-730,-1265,100;1460,0,100"/>
+		<surf type="collision" name="001" points="-730,1265,100;-1460,0,100;1460,0,100"/>
+		<surf type="collision" name="001" points="-730,-1265,100;730,-1265,100;1460,0,100"/>
+		<surf type="collision" name="001" points="1460,0,100;730,1265,100;-730,1265,100"/>
+		<surf type="hex_shape" points="-540,935,0;-1080,0,0;-540,-935,0"/>
+		<surf type="hex_shape" points="-540,-935,0;540,-935,0;1080,0,0"/>
+		<surf type="hex_shape" points="1080,0,0;-540,935,0;-540,-935,0"/>
+		<surf type="hex_shape" points="1080,0,0;540,935,0;-540,935,0"/>
+		<surf type="terrain_hole" points="-688,529,0;-688,1071,0;-798,663,0"/>
+		<surf type="terrain_hole" points="-798,663,0;-688,1071,0;-798,937,0"/>
+		<surf type="terrain_hole" points="688,529,0;-688,1071,0;-688,529,0"/>
+		<surf type="terrain_hole" points="688,529,0;688,1071,0;-688,1071,0"/>
+		<surf type="terrain_hole" points="798,937,0;688,529,0;798,663,0"/>
+		<surf type="terrain_hole" points="688,1071,0;688,529,0;798,937,0"/>
+		<surf type="selection" points="-825,-1429,0;-1650,0,0;1650,0,0"/>
+		<surf type="selection" points="-1650,0,0;-825,1429,0;1650,0,0"/>
+		<surf type="selection" points="1650,0,0;825,-1429,0;-825,-1429,0"/>
+		<surf type="selection" points="-825,1429,0;825,1429,0;1650,0,0"/>
+		<surf_hash type="collision" value="3738782013"/>
+		<surf_hash type="hex_shape" value="432538120"/>
+		<surf_hash type="terrain_hole" value="1586069959"/>
+		<surf_hash type="selection" value="694270162"/>
+	</mesh_description>
+</entity>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity path="">
+	<state id="idle">
+		<mesh_ref ref="mesh"/>
+	</state>
+	<mesh_description id="mesh">
+		<src file="C:/Users/Silva/AppData/Roaming/Surviving Mars/ModAssets/FBX/GeothermalPowerPlant.fbx"/>
+		<mesh file="RDM_GeoPowerPlantGenerator_mesh.m.hgm"/>
+		<material file="RDM_GeoPowerPlantGenerator_mesh.mtl"/>
+		<bsphere value="0,-70,285,1423"/>
+		<box min="-1400,-571,40" max="1400,431,530"/>
+	</mesh_description>
+</entity>

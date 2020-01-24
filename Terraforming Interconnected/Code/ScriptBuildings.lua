@@ -63,6 +63,9 @@ local function ChangeBuildings()
 BuildingTemplates.CarbonateProcessor.construction_cost_Concrete = 60000
 BuildingTemplates.CarbonateProcessor.construction_cost_Metals = 20000
 BuildingTemplates.CarbonateProcessor.construction_cost_MachineParts = 10000
+ClassTemplates.Building.CarbonateProcessor.construction_cost_Concrete = 60000
+ClassTemplates.Building.CarbonateProcessor.construction_cost_Metals = 20000
+ClassTemplates.Building.CarbonateProcessor.construction_cost_MachineParts = 10000
 
 BuildingTemplates.OpenFarm.terraforming_param = "Atmosphere"
 BuildingTemplates.OpenFarm.terraforming_boost_sol = 50
@@ -80,7 +83,7 @@ BuildingTemplates.CoreHeatConvector.terraforming_boost_sol = 200
 BuildingTemplates.CoreHeatConvector.water_consumption = 0
 BuildingTemplates.CoreHeatConvector.water_production = 10000
 
-BuildingTemplates.MagneticFieldGenerator.display_name = "Geothermal Heat Exchanger"
+--[[BuildingTemplates.MagneticFieldGenerator.display_name = "Geothermal Heat Exchanger"
 BuildingTemplates.MagneticFieldGenerator.display_name_pl = "Geothermal Heat Exchangers"
 BuildingTemplates.MagneticFieldGenerator.description = "By drilling deep into the Martian crust, internal heat can be brought to the surface. The geothermal heat exchanger improves global Temperature<image UI/Icons/res_temperature.tga 1300>, protects against cold waves and provides a source of power for the colony."
 BuildingTemplates.MagneticFieldGenerator.construction_cost_Concrete = 50000
@@ -91,10 +94,15 @@ BuildingTemplates.MagneticFieldGenerator.maintenance_resource_amount = 5000
 BuildingTemplates.MagneticFieldGenerator.terraforming_param = "Temperature"
 BuildingTemplates.MagneticFieldGenerator.terraforming_boost_sol = 200
 BuildingTemplates.MagneticFieldGenerator.electricity_consumption = 0
-BuildingTemplates.MagneticFieldGenerator.electricity_production = 100000
+BuildingTemplates.MagneticFieldGenerator.electricity_production = 100000]]
 
 end
 
 OnMsg.CityStart = ChangeBuildings
 OnMsg.ClassesBuilt = ChangeBuildings
 OnMsg.LoadGame = ChangeBuildings
+
+function OnMsg.ClassesPostprocess()
+BuildingTemplates.MagneticFieldGenerator.build_category = "Hidden"
+BuildingTemplates.MagneticFieldGenerator.Group = "Hidden"
+end

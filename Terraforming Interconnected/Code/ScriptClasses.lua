@@ -1,82 +1,53 @@
 -- new building class
 
-DefineClass.CoreHeatConvector = {
-  __parents = { "LifeSupportProducer", "TerraformingBuilding" },
-	properties = {
-		{ template = true, id = "effect_range", name = T{31, "Effect Range"}, editor = "number", category = "Geothermal", default = 10, min = 1, max = 20 },		
-		{ id = "work_state", name = T{34, "Work State"}, editor = "text", default = "", no_edit = false },
-	},
-	building_update_time = const.HourDuration / 4,
-	heat = 4*const.MaxHeat, -- compensate cold wave + cold area + 2 spheres
+DefineClass.DeepAquiferExtractor = {
+  __parents = { "WaterProducer", "TerraformingBuilding" },
+	building_update_time = const.HourDuration,
 
---  research_points_lifetime = 0
-}
+	}
 
-function CoreHeatConvector:BuildingUpdate(delta)
-  if not self.working then
+function DeepAquiferExtractor:SetPostConsumption()
+  if self.post_consumption == 100 then
     return
   end
-  local terraforming_sum, count = self:GetTerraformingSum()
-  local research_pts = MulDivRound(self.ResearchPointsPerDay, terraforming_sum * delta, count * MaxTerraformingValue * const.DayDuration)
-  self.research_points_lifetime = self.research_points_lifetime + research_pts
-  self.city:AddResearchPoints(research_pts)
-end
-
-function MagneticFieldGenerator:GetEstimatedDailyProduction()
-  if not self.working and (self.city:GetResearchInfo() or ElectricityConsumer.GetWorkNotPossibleReason(self)) then
-    return 0
+  TerraformingBuilding.SetPostConsumption(self)
+  if self.post_consumption == 0 then
+    self.disable_el_modifier = ObjectModifier:new({
+      target = self,
+      prop = "disable_electricity_consumption",
+      amount = 1
+    })
+    return
   end
-  local working_shifts = 0
-  for idx = 1, self.max_shifts do
-    if not self.closed_shifts[idx] then
-      working_shifts = working_shifts + 1
-    end
+  self.el_modifier = ObjectModifier:new({
+    target = self,
+    prop = "electricity_consumption",
+    percent = self.post_consumption - 100
+  })
+end
+function DeepAquiferExtractor:ResetPostConsumption()
+  if self.post_consumption == 100 then
+    return
   end
-  local terraforming_sum, count = self:GetTerraformingSum()
-  return MulDivRound(self.ResearchPointsPerDay, terraforming_sum * working_shifts, count * MaxTerraformingValue * self.max_shifts)
-end
-
-function MagneticFieldGenerator:GetTerraformingSum()
-  local sum, count = 0, 0
-  for key in pairs(TerraformingParamDefs) do
-    sum = sum + (Terraforming[key] or 0)
-    count = count + 1
+  TerraformingBuilding.ResetPostConsumption(self)
+  if self.disable_el_modifier then
+    self.disable_el_modifier:Remove()
+    self.disable_el_modifier = false
+  elseif self.el_modifier then
+    self.el_modifier:Remove()
+    self.el_modifier = false
   end
-  return sum, count
 end
-
-function MagneticFieldGenerator:GetUIResearchProject()
-  return self.city:GetUIResearchProject()
+function DeepAquiferExtractor:GetHeatRange()
+  return
 end
-
-function MagneticFieldGenerator:GetResearchProgress()
-  return self.city:GetResearchProgress()
-end
-
-function MagneticFieldGenerator:UIResearchTech()
-  OpenResearchDialog()
-end
-
-function MagneticFieldGenerator:GetSolAtmosphereDecay()
-  return GetSolAtmosphereDecay()
-end
-
-function MagneticFieldGenerator:GetAtmosphereLossReductionSum()
-  return GetAtmosphereDecayReduct()
-end
-
-function GetAtmosphereDecayReduct()
-  local reduct = 0
-  for _, generator in ipairs(UICity.labels.MagneticFieldGenerator or empty_table) do
-    if generator.working then
-      reduct = reduct + generator.decay_atmosphere_reduct
-    end
-  end
-  return reduct
+function DeepAquiferExtractor:GetHeatBorder()
+  return
 end
 
 
--- fix for building icons by ChoGGi
+
+-- [[fix for building icons by ChoGGi
 local function FixUpImages()
 	local bt = BuildingTemplates
 	
@@ -95,4 +66,4 @@ function OnMsg.LoadGame()
 end
 function OnMsg.CityStart()
 	FixUpImages()
-end
+end]]
