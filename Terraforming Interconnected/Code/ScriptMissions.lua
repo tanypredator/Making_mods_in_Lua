@@ -15,6 +15,7 @@ function OnMsg.ClassesPostprocess()
 	local init = not g_SpecialProjectSpawnNextIdx[bt.LaunchSpaceMirror]
 	SpawnSpecialProject(LaunchSpaceMirror, UICity, init)
 	end
+	ShowPopupNotification ("CompletedLaunchSpaceMirror")
   end
 
 	bt.LaunchSpaceMirror.terraforming_changes = {}
@@ -93,6 +94,7 @@ High concentrations of nitrous oxides may cause toxic rain!]])
 	local init = not g_SpecialProjectSpawnNextIdx[bt.LaunchSpaceSunshade]
 	SpawnSpecialProject(LaunchSpaceSunshade, UICity, init)
 	end
+	ShowPopupNotification ("CompletedLaunchSpaceSunshade")
   end
 
 	bt.LaunchSpaceSunshade.rocket_required_resources = {
@@ -180,3 +182,16 @@ DefineConst({
   scale = "Terraforming",
   value = 400
 })
+
+function OnMsg.ClassesPostprocess()
+
+	local pnp = PopupNotificationPresets
+
+	pnp.CompletedImportGreenhouseGases.text = T(0, [[
+But a large scale project has been completed today. Several gigantic tanks of Nitrogen and other atmospheric gases from the atmosphere of Titan have been delivered to Mars.
+
+This will contribute towards thickening of the Martian Atmosphere by unleashing the stored gases and significantly improve the conditions for Vegetation and all living things on Mars.]])
+  	pnp.CompletedImportGreenhouseGases.title = T(0, "Import Atmospheric Gases")
+  	pnp.CompletedImportGreenhouseGases.voiced_text = T(0, "Just a few of the falling tanks, delivered by autonomous crafts , were visible to the naked eye.")
+
+end
