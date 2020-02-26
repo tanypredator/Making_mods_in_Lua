@@ -1,10 +1,24 @@
 return {
+PlaceObj("ModItemTechPreset", {
+  SortKey = 16,
+  description = T(0, --[[ModItemTechPreset  description]] 'New Building: <color em>Deep Aquifer Extractor</color> (150<image UI/Icons/res_concrete.tga 1300> 100<image UI/Icons/res_metal.tga 1300> 50<image UI/Icons/res_polymers.tga 1300>) - improves the Water <image UI/Icons/res_water.tga 1300> of Mars gradually. Produces Water.\n\n<color flavor>"When the well is dry, we know the worth of water." \n<right>Benjamin Franklin</color><left>'),
+  display_name = T(0, "Deep Aquifer Extractor"),
+  group = "Terraforming",
+  icon = "UI/Icons/Research/core_heat_convertor.tga",
+  id = "CoreHeatConvertor",
+  position = range(16, 19),
+  save_in = "armstrong",
+  PlaceObj("Effect_TechUnlockBuilding", {
+    Building = "DeepAquiferExtractor"
+  })
+}),
 
 PlaceObj("ModItemBuildingTemplate", {
   "Group",  "Terraforming",
   "SaveIn",  "armstrong",
-  "Id",  "CoreHeatConvector",
+  "Id",  "DeepAquiferExtractor",
   "template_class",  "DeepAquiferExtractor",
+  "pin_rollover_context", "water",
   "construction_cost_Concrete",  100000,
   "construction_cost_Metals",  150000,
   "construction_cost_Polymers",  50000,
@@ -15,17 +29,17 @@ PlaceObj("ModItemBuildingTemplate", {
   "upgrade1_display_name",  T(587908642055, "Amplify"),
   "upgrade1_description",  T(11909, "+<upgrade1_mul_value_1>% faster terraforming; +<power(upgrade1_add_value_2)> Consumption."),
   "upgrade1_icon",  "UI/Icons/Upgrades/amplify_01.tga",
-  "upgrade1_upgrade_cost_Polymers",  10000,
-  "upgrade1_mod_label_1",  "CoreHeatConvector",
+  "upgrade1_upgrade_cost_Metals",  50000,
+  "upgrade1_mod_label_1",  "DeepAquiferExtractor",
   "upgrade1_mod_prop_id_1",  "terraforming_boost_sol",
   "upgrade1_mul_value_1",  50,
-  "upgrade1_mod_label_2",  "CoreHeatConvector",
+  "upgrade1_mod_label_2",  "DeepAquiferExtractor",
   "upgrade1_mod_prop_id_2",  "electricity_consumption",
   "upgrade1_add_value_2",  20000,
   "maintenance_resource_type",  "Polymers",
   "maintenance_resource_amount",  2000,
-  "display_name",  T(132230066368, "Deep Aquifer Extractor"),
-  "display_name_pl",  T(970508703169, "Deep Aquifer Extractors"),
+  "display_name",  T(0, "Deep Aquifer Extractor"),
+  "display_name_pl",  T(0, "Deep Aquifer Extractors"),
   "description",  T(502029972735, "Extracts water from aquifers deep below the Martian surface and releases it into the atmosphere, improving global Water<image UI/Icons/res_water.tga 1300>. Provides clean Water for the colony."),
   "build_category",  "Terraforming",
   "display_icon",  "UI/Icons/Buildings/core_heat_convector.tga",
@@ -35,16 +49,18 @@ PlaceObj("ModItemBuildingTemplate", {
   "encyclopedia_id",  "CoreHeatConvector",
   "encyclopedia_image",  "UI/Encyclopedia/CoreHeatConvector.tga",
   "label1",  "OutsideBuildings",
-  "label2", "WaterBuilding",
+  "label2", "OutsideBuildingsTargets",
+  "label3", "WaterBuilding",
   "palette_color1",  "outside_base",
   "palette_color2",  "outside_accent_1",
   "palette_color3",  "outside_accent_2",
   "demolish_sinking",  range(0, 0),
   "terraforming_param",  "Water",
   "terraforming_boost_sol",  400,
-  "post_consumption",  50,
   "electricity_consumption",  50000,
-  "water_production", 15000
+  "exploitation_resource", "Water",
+  "water_production", 15000,
+  "post_consumption",  50,
 }),
 
 PlaceObj("ModItemTechPreset", {
@@ -85,14 +101,6 @@ PlaceObj('ModItemCode', {
 	'name', "ScriptMissions.lua",
 	'FileName', "Code/ScriptMissions.lua",
 }),
-PlaceObj('ModItemCode', {
-	'name', "ScriptVegetation.lua",
-	'FileName', "Code/ScriptVegetation.lua",
-}),
---[[PlaceObj('ModItemCode', {
-	'name', "ScriptClasses.lua",
-	'FileName', "Code/ScriptClasses.lua",
-}),]]
 
 PlaceObj('ModItemActionFXLight', {
 	Action = "Working",
@@ -143,7 +151,7 @@ PlaceObj('ModItemActionFXParticles', {
 	},
 	Moment = "start",
 	OffsetDir = "SourceAxisZ",
-	Particles = "RDM_Greatsteam_1",
+	Particles = "GHGFactory_Smoke",
 	Spot = "Greatsteam",
 	SpotsPercent = 100,
 	behaviors = {
@@ -160,34 +168,6 @@ PlaceObj('ModItemActionFXParticles', {
 	id = "",
 }),
 
-PlaceObj('ModItemActionFXParticles', {
-	Action = "Working",
-	Actor = "RDM_GeoPowerPlant",
-	Attach = true,
-	DetailLevel = 100,
-	EndRules = {
-		PlaceObj('ActionFXEndRule', {
-			'EndMoment', "end",
-		}),
-	},
-	Moment = "start",
-	OffsetDir = "SourceAxisZ",
-	Particles = "RDM_Faststeam_1",
-	Spot = "Steam",
-	SpotsPercent = 100,
-	behaviors = {
-		PlaceObj('ActionFXBehavior', nil),
-		PlaceObj('ActionFXBehavior', nil),
-		PlaceObj('ActionFXBehavior', nil),
-		PlaceObj('ActionFXBehavior', nil),
-		PlaceObj('ActionFXBehavior', nil),
-		PlaceObj('ActionFXBehavior', nil),
-	},
-	comment = "Working Steam",
-	group = "Default",
-	handle = 1694435740,
-	id = "",
-}),
 PlaceObj('ModItemBuildingTemplate', {
 	'Group', "Power",
 	'Id', "RDM_GeoPowerPlant",

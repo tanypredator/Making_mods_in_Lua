@@ -12,10 +12,13 @@ end
 
 function OnMsg.CityStart()
     BT_DoBuildingUnlock('RDM_GeoPowerPlant', 'MagneticFieldGenerator')
+	UnlockUpgrade("RDM_GeoPowerPlant_AdvancedTurbine")
 end
 function OnMsg.TechResearched(tech_id, city, first_time)
 	BT_DoBuildingUnlock('RDM_GeoPowerPlant', 'MagneticFieldGenerator')
+	UnlockUpgrade("RDM_GeoPowerPlant_AdvancedTurbine")
 end
 function OnMsg.LoadGame()
     BT_DoBuildingUnlock('RDM_GeoPowerPlant', 'MagneticFieldGenerator')
+	UnlockUpgrade("RDM_GeoPowerPlant_AdvancedTurbine")
 end

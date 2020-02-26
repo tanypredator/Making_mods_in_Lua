@@ -14,7 +14,6 @@ return PlaceObj('ModDef', {
 		"Code/ScriptBuildings.lua",
 		"Code/ScriptTechs.lua",
 		"Code/ScriptMissions.lua",
-		"Code/ScriptVegetation.lua",
 		"Code/Class_RDM_GeoPowerPlant.lua",
 		"Code/Init.lua",
 		"Code/SavegameFix.lua",

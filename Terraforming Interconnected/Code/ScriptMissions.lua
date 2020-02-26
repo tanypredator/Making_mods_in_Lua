@@ -13,17 +13,12 @@ function OnMsg.ClassesPostprocess()
 	if SMcount<10 then
 	self.rocket = false
 	local init = not g_SpecialProjectSpawnNextIdx[bt.LaunchSpaceMirror]
-	SpawnSpecialProject(LaunchSpaceMirror, UICity, init)
+	SpawnSpecialProject("LaunchSpaceMirror", UICity, init)
 	end
-	ShowPopupNotification ("CompletedLaunchSpaceMirror")
+--[[	ShowPopupNotification ("CompletedLaunchSpaceMirror")]]
   end
 
 	bt.LaunchSpaceMirror.terraforming_changes = {}
-
-	--[[bt.LaunchSpaceMirror.PrerequisiteToCreate = function(self, city, idx)
-    city = city or UICity
-    return city:IsTechResearched(self.activation_by_tech_research)and true
-  end]]
 
 	bt.LaunchSpaceMirror.spawn_period = range(1, 5)
 	bt.LaunchSpaceMirror.consume_rocket = false
@@ -92,9 +87,9 @@ High concentrations of nitrous oxides may cause toxic rain!]])
 	if MScount<10 then
 	self.rocket = false
 	local init = not g_SpecialProjectSpawnNextIdx[bt.LaunchSpaceSunshade]
-	SpawnSpecialProject(LaunchSpaceSunshade, UICity, init)
+	SpawnSpecialProject("LaunchSpaceSunshade", UICity, init)
 	end
-	ShowPopupNotification ("CompletedLaunchSpaceSunshade")
+--[[	ShowPopupNotification ("CompletedLaunchSpaceSunshade")]]
   end
 
 	bt.LaunchSpaceSunshade.rocket_required_resources = {
@@ -153,7 +148,7 @@ High concentrations of nitrous oxides may cause toxic rain!]])
     })
   }
 
-	bt.SeedVegetation.spawn_period = range(1, 3)
+	bt.SeedVegetation.spawn_period = range(4, 8)
 	bt.SeedVegetation.rocket_required_resources = {
     PlaceObj("ResourceAmount", {
       "resource",
