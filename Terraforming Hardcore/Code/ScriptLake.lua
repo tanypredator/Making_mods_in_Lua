@@ -203,6 +203,7 @@ function OnMsg.TerraformThresholdPassed(id, reached)
   end
 end
 
+function OnMsg.ClassesBuilt()
 		PlaceObj("BuildingTemplate", {
 			"Id", "RainLakeSpawned",
 			"template_class", "RainLakeSpawned",
@@ -229,13 +230,6 @@ end
 			"terraforming_boost_sol", 0,
 		})
 
-
-function ConstructionController:GetRainLakeElevation()
-	local pos = self.cursor_obj:GetPos()
-	return pos:z()
-end
-
-function OnMsg.ClassesBuilt()
 
 PlaceObj("XTemplate", {
   group = "Infopanel Sections",
