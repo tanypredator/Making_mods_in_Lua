@@ -9,7 +9,6 @@ end]]
 
 function OnMsg.ChangeMapDone()
 	if not UICity then return end
-	 local lake = RainLakeSpawned:new()
  	 local pos = point(250000, 250000, 10000)
- 	 lake:SetPos(pos)
+ 	 SpawnRainLake(pos)
 end

@@ -11,6 +11,11 @@ DefineClass.RainLakeSpawned = {
     "SoilOverlayInfopanelButtonBuilding",
 "EditorObject"
 	},
+	display_name = T("Sea marker"),
+	IPDescription = T("This is a marker for a future lake or sea. It will be filled with underground water when it melts and with rains when they start. At the beginning water surface may look ugly because of "waves" effect."),
+	display_icon = "UI/Icons/Buildings/terraforming_big_lake.tga",
+	entity = "entity",
+
 properties = {
     {
       template = true,
@@ -74,6 +79,12 @@ properties = {
   volume = 0,
   dl2 = 0
 }
+
+function SpawnRainLake(pos)
+  local lake = PlaceObject("RainLakeSpawned")
+  lake:SetPos(pos)
+  return lake
+end
 
 function RainLakeSpawned:GameInit()
 	self:SetColorModifier(-12374251)
@@ -203,55 +214,6 @@ function OnMsg.TerraformThresholdPassed(id, reached)
   end
 end
 
-function OnMsg.ClassesBuilt()
-		PlaceObj("BuildingTemplate", {
-			"Id", "RainLakeSpawned",
-			"template_class", "RainLakeSpawned",
- 			"build_points", 0,
- 			"instant_build", true,
-			"palette_color1", "outside_base",
-			"dome_forbidden", true,
-			"display_name", [[Rain-lake]],
-			"display_name_pl", [[Rain-lakes]],
-			"description", [[This is a marker for a future lake. It will be filled with rains when they start. At the beginning water surface will look ugly because of "waves" effect. You can elevate the water level with a button, until it looks OK. The lake will improve the "Water" teraforming parameter and local soil quality, when the rains fill in enough water (and temperature is high enough).]],
-			"display_icon", "UI/Icons/Buildings/terraforming_big_lake.tga",
-			"entity", entity,
-			"build_category", "Lakes",
-			"Group", "Lakes",
-			"encyclopedia_exclude", true,
-			"on_off_button", false,
-			"prio_button", false,
-			"use_demolished_state", false,
-			"force_extend_bb_during_placement_checks", 30000,
-			"demolish_sinking", range(0, 0),
-			"demolish_debris", 0,
-			"auto_clear", true,
-			"terraforming_param", "Water",
-			"terraforming_boost_sol", 0,
-		})
-
-
-PlaceObj("XTemplate", {
-  group = "Infopanel Sections",
-  id = "customRainLakeSpawned",
-  PlaceObj("XTemplateTemplate", {
-    "__context_of_kind",    "RainLakeSpawned",
-    "__template",    "InfopanelSection",
-    "RolloverText",    T("<left>Water Level <right><percent(WaterLevelPct)>"),
-    "RolloverTitle",    T("Status"),
-    "Title",    T("Status"),
-    "Icon",    "UI/Icons/Sections/storage.tga"
-  }, {
-    PlaceObj("XTemplateTemplate", {
-      "__template",
-      "InfopanelText",
-      "Text",
-      T(11939, "Water Level<right><percent(WaterLevelPct)>")
-    })
-  })
-})
-
-end
 
 -- remove UnevenTerrain error
 local cs_UnevenTerrain = ConstructionStatus.UnevenTerrain
