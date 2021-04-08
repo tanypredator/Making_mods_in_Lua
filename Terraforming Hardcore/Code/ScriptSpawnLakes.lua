@@ -18,18 +18,6 @@ function MinimumSectorElevationMarker:Done()
 	end
 end
 
-function MinimumSectorElevationMarker:GameInit()
-	if one_sector_height_marker_check then
-		print("Killing extra MinimumElevationMarkers!")
-		DoneObject(self)
-	end
-	if SectorLowestZ == max_int then
-		SectorLowestZ = self:GetVisualPos()
-	end
-	one_sector_height_marker_check = self
-	return SectorLowestZ
-end
-
 function OnMsg.ChangeMapDone()
 	if not UICity then return end
 	local MyMapName = FillRandomMapProps(nil, g_CurrentMapParams)
@@ -76,8 +64,19 @@ function OnMsg.ChangeMapDone()
 		if SectorLowestZ == max_int and not mapdata.IsPrefabMap then
 			local tavg, tmin, tmax = terrain.GetAreaHeight(lakecheckpoints[i],xradius)
 			SectorLowestZ = tmin
-
 		end
+
+function MinimumSectorElevationMarker:GameInit()
+	if one_sector_height_marker_check then
+		print("Killing extra MinimumElevationMarkers!")
+		DoneObject(self)
+	end
+	if SectorLowestZ == max_int then
+		SectorLowestZ = self:GetVisualPos()
+	end
+	one_sector_height_marker_check = self
+	return SectorLowestZ
+end
 
 		if SectorLowestZ:z()>baseheight then
 			sectorlowestpoints[i]=nil
