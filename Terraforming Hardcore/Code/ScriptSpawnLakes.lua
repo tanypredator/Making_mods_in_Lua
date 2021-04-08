@@ -17,6 +17,7 @@ function OnMsg.ChangeMapDone()
 	local lakepointy = {}
 
 	local stepx=0
+	local pointx=0
 	for i=1,10 do
 	pointx=mapx/20+stepx
 	stepx=stepx+mapx/10
@@ -24,6 +25,7 @@ function OnMsg.ChangeMapDone()
 	end
 
 	local stepy=0
+	local pointy=0
 	for i=1,10 do
 	pointy=mapy/20+stepy
 	stepy=stepy+mapy/10
