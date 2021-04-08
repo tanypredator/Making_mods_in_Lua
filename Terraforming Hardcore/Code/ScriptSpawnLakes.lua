@@ -81,7 +81,7 @@ function OnMsg.ChangeMapDone()
 
 		if SectorLowestZ:z()>baseheight then
 			sectorlowestpoints[i]=nil
-		elseif
+		else
 			sectorlowestpoints[i]=SectorLowestZ
 		end
 	end
