@@ -1,20 +1,13 @@
-local entity = "Ice_Cliff_06"
-
-local IsMassUIModifierPressed = IsMassUIModifierPressed
 local ApplyAllWaterObjects = ApplyAllWaterObjects
 local table_remove = table.remove
 
 DefineClass.RainLakeSpawned = {
-	__parents = {
-		"Building",
-  		"TerraformingBuildingBase",
-    "SoilOverlayInfopanelButtonBuilding",
-"EditorObject"
-	},
+	__parents = {"Building",   "SoilOverlayInfopanelButtonBuilding", "EditorObject"},
+
 	display_name = T("Sea marker"),
-	IPDescription = T("This is a marker for a future lake or sea. It will be filled with underground water when it melts and with rains when they start. At the beginning water surface may look ugly because of "waves" effect."),
+	description = T("This is a marker for a future lake or sea. It will be filled with underground water when it melts and with rains when they start. At the beginning water surface may look ugly because of waves effect."),
 	display_icon = "UI/Icons/Buildings/terraforming_big_lake.tga",
-	entity = "entity",
+	entity = "Ice_Cliff_06",
 
 properties = {
     {
@@ -80,6 +73,9 @@ properties = {
   dl2 = 0
 }
 
+function RainLakeSpawned:Init()
+end
+
 function SpawnRainLake(pos)
   local lake = PlaceObject("RainLakeSpawned")
   lake:SetPos(pos)
@@ -98,7 +94,7 @@ function RainLakeSpawned:GameInit()
 	ApplyAllWaterObjects()
 --[[  local posnew = pos:AddZ(-500)
   self:SetPos(posnew)]]
-
+	self:UpdateVisuals()
 end
 
 function RainLakeSpawned:Done()
