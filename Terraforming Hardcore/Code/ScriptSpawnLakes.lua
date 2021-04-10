@@ -26,11 +26,12 @@ function OnMsg.ChangeMapDone()
 			local n=1
 			local stepx = 0
 			local stepy = 0
-			local initx=center-radius+500
-			local inity=center-radius+500
+			local initx=center:x()-radius+500
+			local inity=center:y()-radius+500
 				for x=1,40 do
 					for y=1,40 do
 						pointlist[n] = point((initx+stepx),(inity+stepy))
+						pointlist[n] = pointlist[n]:SetTerrainZ
 						stepy=stepy+1000
 						n=n+1
 						end
@@ -50,9 +51,11 @@ function OnMsg.ChangeMapDone()
 	end
 
 
+--[[			local sectorlowestpoints = {point(250000,250000,baseheight), point(350000,350000,baseheight)}
+local pos = point(250000, 250000, baseheight)]]
+
 	for i,point in ipairs(sectorlowestpoints) do
 		SpawnRainLake(point)
 	end
 
---[[		local pos = point(250000, 250000, baseheight)]]
 end
