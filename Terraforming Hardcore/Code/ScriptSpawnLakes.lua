@@ -23,22 +23,22 @@ function OnMsg.ChangeMapDone()
 			local pointlist={}
 
 			if havg<(baseheight+4000) then
-			local n=1
-			local stepx = 0
-			local stepy = 0
-			local initx=center:x()-radius+500
-			local inity=center:y()-radius+500
+				local n=1
+				local stepx = 0
+				local stepy = 0
+				local initx=center:x()-radius+500
+				local inity=center:y()-radius+500
 				for x=1,40 do
 					for y=1,40 do
 						pointlist[n] = point((initx+stepx),(inity+stepy))
 						pointlist[n] = pointlist[n]:SetTerrainZ()
 						stepy=stepy+1000
 						n=n+1
-						end
+					end
 					stepx=stepx+1000
 					n=n+1
-					end
 				end
+			end
  		   	local key, value = 1, pointlist[1]:z()
  		   	for i = 2, #pointlist do
 				if value<pointlist[i]:z() then
