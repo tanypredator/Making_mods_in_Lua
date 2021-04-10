@@ -1,7 +1,7 @@
 function OnMsg.ChangeMapDone()
 	if not UICity then return end
 	local MyMapName = FillRandomMapProps(nil, g_CurrentMapParams)
-	local baseheight = 0
+	local baseheight = 10000
 	if MyMapName == "BlankBig_01" then
  		baseheight = 10000
 	elseif MyMapName == "BlankBigTerraceCMix_04" then
@@ -9,7 +9,7 @@ function OnMsg.ChangeMapDone()
 	end
 	
 	local sectorlowestpoints = {}
-	local n=1
+	local number=1
 
 	local tile = GetMapSectorTile()
 	local radius = tile/2
@@ -28,25 +28,36 @@ function OnMsg.ChangeMapDone()
 				local stepy = 0
 				local initx=center:x()-radius+500
 				local inity=center:y()-radius+500
-				for x=1,40 do
-					for y=1,40 do
-						pointlist[n] = point((initx+stepx),(inity+stepy))
+				local lakepointx = {}
+				local lakepointy = {}
+				for x=1,20 do
+					lakepointx[x]=initx+stepx
+					stepx=stepx+2000
+				end
+				for y=1,20 do
+					lakepointy[y]=inity+stepy
+					stepy=stepy+2000
+				end
+
+				for n=1,400 do
+					for j,x in ipairs(lakepointx) do
+						for k,y in ipairs(lakepointy) do
+						pointlist[n] = point(lakepointx[j], lakepointy[k])
 						pointlist[n] = pointlist[n]:SetTerrainZ()
-						stepy=stepy+1000
-						n=n+1
+						end
 					end
-					stepx=stepx+1000
-					n=n+1
+				end
+ 		   		local min, height = 1, pointlist[1]:z()
+ 		   		for i = 1, #pointlist do
+					if height>pointlist[i]:z() then
+  						min, height = i, pointlist[i]:z()
+					end
+ 		   		end
+				if pointlist[min]:z()<(baseheight-1000) then
+					sectorlowestpoints[number] = pointlist[min]
+					number=number+1
 				end
 			end
- 		   	local key, value = 1, pointlist[1]:z()
- 		   	for i = 2, #pointlist do
-				if value>pointlist[i]:z() then
-  					key, value = i, pointlist[i]:z()
-				end
- 		   	end
-			sectorlowestpoints[n] = pointlist[key]
-			n=n+1
 		end
 	end
 
@@ -55,7 +66,7 @@ function OnMsg.ChangeMapDone()
 local pos = point(250000, 250000, baseheight)]]
 
 	for i,point in ipairs(sectorlowestpoints) do
-		SpawnRainLake(point)
+			SpawnRainLake(point)
 	end
 
 end
