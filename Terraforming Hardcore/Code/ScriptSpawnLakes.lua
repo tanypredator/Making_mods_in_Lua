@@ -31,7 +31,7 @@ function OnMsg.ChangeMapDone()
 				for x=1,40 do
 					for y=1,40 do
 						pointlist[n] = point((initx+stepx),(inity+stepy))
-						pointlist[n] = pointlist[n]:SetTerrainZ
+						pointlist[n] = pointlist[n]:SetTerrainZ()
 						stepy=stepy+1000
 						n=n+1
 						end
