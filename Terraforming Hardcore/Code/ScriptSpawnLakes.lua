@@ -41,7 +41,7 @@ function OnMsg.ChangeMapDone()
 			end
  		   	local key, value = 1, pointlist[1]:z()
  		   	for i = 2, #pointlist do
-				if value<pointlist[i]:z() then
+				if value>pointlist[i]:z() then
   					key, value = i, pointlist[i]:z()
 				end
  		   	end
