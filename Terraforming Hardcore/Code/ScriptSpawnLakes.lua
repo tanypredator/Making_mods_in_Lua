@@ -16,7 +16,7 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigCanyonCMix_06" then
  		baseheight = 7830
 	elseif MyMapName == "BlankBigCanyonCMix_07" then
- 		baseheight = 7830
+ 		baseheight = 5040
 	elseif MyMapName == "BlankBigCanyonCMix_08" then
  		baseheight = 7830
 	elseif MyMapName == "BlankBigCanyonCMix_09" then
@@ -24,9 +24,9 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigCanyonCMix_10" then
  		baseheight = 7830
 	elseif MyMapName == "BlankBigCliffsCMix_01" then
- 		baseheight = 10000
-	ielseif MyMapName == "BlankBigCliffsCMix_02" then
- 		baseheight = 10000
+ 		baseheight = 9545
+	elseif MyMapName == "BlankBigCliffsCMix_02" then
+ 		baseheight = 9545
 	elseif MyMapName == "BlankBigCrater_01" then
  		baseheight = 10000
 	elseif MyMapName == "BlankBigCratersCMix_01" then
@@ -34,7 +34,7 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigCratersCMix_02" then
  		baseheight = 10000
 	elseif MyMapName == "BlankBigHeartCMix_03" then
- 		baseheight = 10000
+ 		baseheight = 5710
 	elseif MyMapName == "BlankBigTerraceCMix_01" then
  		baseheight = 10000
 	elseif MyMapName == "BlankBigTerraceCMix_02" then
@@ -56,7 +56,7 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigTerraceCMix_10" then
  		baseheight = 7830
 	elseif MyMapName == "BlankBigTerraceCMix_11" then
- 		baseheight = 7830
+ 		baseheight = 7545
 	elseif MyMapName == "BlankBigTerraceCMix_12" then
  		baseheight = 10000
 	elseif MyMapName == "BlankBigTerraceCMix_13" then
@@ -74,8 +74,6 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigTerraceCMix_19" then
  		baseheight = 7830
 	elseif MyMapName == "BlankBigTerraceCMix_20" then
- 		baseheight = 7830
-	elseif MyMapName == "BlankTerraceBig_05" then
  		baseheight = 7830
 	end
 	
