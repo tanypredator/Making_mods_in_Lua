@@ -23,17 +23,17 @@ function OnMsg.ChangeMapDone()
  		baseheight = 7830
 	elseif MyMapName == "BlankBigCanyonCMix_10" then
  		baseheight = 7830
-	if MyMapName == "BlankBigCliffsCMix_01" then
+	elseif MyMapName == "BlankBigCliffsCMix_01" then
  		baseheight = 10000
-	if MyMapName == "BlankBigCliffsCMix_02" then
+	ielseif MyMapName == "BlankBigCliffsCMix_02" then
  		baseheight = 10000
-	if MyMapName == "BlankBigCrater_01" then
+	elseif MyMapName == "BlankBigCrater_01" then
  		baseheight = 10000
-	if MyMapName == "BlankBigCratersCMix_01" then
+	elseif MyMapName == "BlankBigCratersCMix_01" then
  		baseheight = 10000
-	if MyMapName == "BlankBigCratersCMix_02" then
+	elseif MyMapName == "BlankBigCratersCMix_02" then
  		baseheight = 10000
-	if MyMapName == "BlankBigHeartCMix_03" then
+	elseif MyMapName == "BlankBigHeartCMix_03" then
  		baseheight = 10000
 	elseif MyMapName == "BlankBigTerraceCMix_01" then
  		baseheight = 10000
