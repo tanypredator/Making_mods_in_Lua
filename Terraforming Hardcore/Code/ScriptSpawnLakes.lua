@@ -99,13 +99,12 @@ function OnMsg.ChangeMapDone()
 				local inity=center:y()-radius+500
 				local lakepointx = {}
 				local lakepointy = {}
-				for x=1,20 do
-					lakepointx[x]=initx+stepx
-					stepx=stepx+2000
-				end
-				for y=1,20 do
-					lakepointy[y]=inity+stepy
-					stepy=stepy+2000
+
+				for i=1,20 do
+ 				 	lakepointx[i]=initx+stepx
+  			 	 	lakepointy[i]=inity+stepy
+   			 		stepx=stepx+2000
+   			 		stepy=stepy+2000
 				end
 
 				for n=1,400 do
@@ -116,7 +115,7 @@ function OnMsg.ChangeMapDone()
 						end
 					end
 				end
- 		   		local min, height = 1, pointlist[1]:z()
+ 		   		local min, height = 200, pointlist[200]:z()
  		   		for i = 1, #pointlist do
 					if height>pointlist[i]:z() then
   						min, height = i, pointlist[i]:z()
