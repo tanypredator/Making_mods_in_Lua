@@ -83,7 +83,6 @@ function OnMsg.ChangeMapDone()
 	local tile = GetMapSectorTile()
 	local radius = tile/2
 	local sectors = g_MapSectors
-	local pointlist={}
 
 	for xsec = 1, const.SectorCount do
 		local sectors = sectors[xsec]
@@ -93,29 +92,28 @@ function OnMsg.ChangeMapDone()
 			local havg = terrain.GetAreaHeight(center, radius)
 
 			if havg<(baseheight+3000) then
-				local stepx = 0
-				local stepy = 0
+				local step = 1000
 				local initx=center:x()-radius+500
 				local inity=center:y()-radius+500
 				local lakepointx = {}
 				local lakepointy = {}
+				lakepointx[1] = initx
+				lakepointy[1] = inity
 
-				for i=1,20 do
- 				 	lakepointx[i]=initx+stepx
-  			 	 	lakepointy[i]=inity+stepy
-   			 		stepx=stepx+2000
-   			 		stepy=stepy+2000
+				for i=1,19 do
+ 				 	lakepointx[i+1]=lakepointx[i]+step
+  			 	 	lakepointy[i+1]=lakepointy[i]+step
 				end
-
+				local pointlist={}
 				for n=1,400 do
-					for j,x in ipairs(lakepointx) do
-						for k,y in ipairs(lakepointy) do
+					for j=1,20 do
+						for k=1,20 do
 						pointlist[n] = point(lakepointx[j], lakepointy[k])
 						pointlist[n] = pointlist[n]:SetTerrainZ()
 						end
 					end
 				end
- 		   		local min, height = 200, pointlist[200]:z()
+ 		   		local min, height = 1, pointlist[1]:z()
  		   		for i = 1, #pointlist do
 					if height>pointlist[i]:z() then
   						min, height = i, pointlist[i]:z()
