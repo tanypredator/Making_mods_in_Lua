@@ -160,8 +160,8 @@ local sectorlowestpoints = GetLowestPointEachSector()
 						local pos = point(lakepointx[j], lakepointy[k])
 						pos = pos:SetTerrainZ()
 						if pos:z()<(baseheight-1000) then
-							if pos:z() < sectorlowestpoints[sector_id]:z() then
-						sectorlowestpoints[sector_id] = pos
+							if pos:z() < sectorlowestpoints[sector.id]:z() then
+						sectorlowestpoints[sector.id] = pos
 							end
 						end
 					end
