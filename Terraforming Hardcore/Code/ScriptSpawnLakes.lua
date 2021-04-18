@@ -77,6 +77,48 @@ function OnMsg.ChangeMapDone()
  		baseheight = 7830
 	end
 	
+	local type = type
+	local GetMapSectorXY = GetMapSectorXY
+	local IsInMapPlayableArea = IsInMapPlayableArea
+	local point = point
+
+	-- max the z of the default points
+	local max_point = point(0, 0, terrain.GetMapHeight())
+	-- and build a list of sectors with it
+	local lowest_points = {}
+	local g_MapSectors = g_MapSectors
+
+	for sector in pairs(g_MapSectors) do
+ 		if type(sector) ~= "number" then
+		lowest_points[sector.id] = max_point
+ 		end
+	end
+
+	local width, height = terrain.GetMapSize()
+	local border = mapdata.PassBorder or 0
+
+	local width, height = ConstructableArea:sizexyz()
+	width = width / 1000
+	height = height / 1000
+
+	for x = 100, width do
+ 		for y = 10, height do
+ 			local x1000, y1000 = x * 1000, y * 1000
+            -- the area outside grids is counted as the nearest grid.
+			if IsInMapPlayableArea(x1000, y1000) then
+				local sector_id = GetMapSectorXY(x1000, y1000).id
+				local stored = lowest_points[sector_id]:z()
+				if stored then
+					local pos = point(x1000, y1000):SetTerrainZ()
+					if pos:z() < stored then
+						lowest_points[sector_id] = pos
+					end
+				end
+			end
+		end
+	end
+--[[	return lowest_points
+
 	local sectorlowestpoints = {}
 	local number=1
 
@@ -105,6 +147,7 @@ function OnMsg.ChangeMapDone()
   			 	 	lakepointy[i+1]=lakepointy[i]+step
 				end
 				local pointlist={}
+
 				for n=1,400 do
 					for j=1,20 do
 						for k=1,20 do
@@ -113,6 +156,7 @@ function OnMsg.ChangeMapDone()
 						end
 					end
 				end
+
  		   		local min, height = 1, pointlist[1]:z()
  		   		for i = 1, #pointlist do
 					if height>pointlist[i]:z() then
@@ -126,9 +170,9 @@ function OnMsg.ChangeMapDone()
 			end
 		end
 	end
+]]
 
-
-	for i,point in ipairs(sectorlowestpoints) do
+	for i,point in ipairs(lowest_points) do
 			SpawnRainLake(point)
 	end
 	Sleep(25) end, self)
