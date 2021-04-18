@@ -76,16 +76,18 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigTerraceCMix_20" then
  		baseheight = 7830
 	end
-	
+--[[	
 	local type = type
 	local GetMapSectorXY = GetMapSectorXY
 	local IsInMapPlayableArea = IsInMapPlayableArea
 	local point = point
+	local lowest_points
 
+local function GetLowestPointEachSector()
 	-- max the z of the default points
 	local max_point = point(0, 0, terrain.GetMapHeight())
 	-- and build a list of sectors with it
-	local lowest_points = {}
+	lowest_points = {}
 	local g_MapSectors = g_MapSectors
 
 	for sector in pairs(g_MapSectors) do
@@ -117,10 +119,13 @@ function OnMsg.ChangeMapDone()
 			end
 		end
 	end
---[[	return lowest_points
+	return lowest_points
+end
+
+local sectorlowestpoints = GetLowestPointEachSector()
+]]
 
 	local sectorlowestpoints = {}
-	local number=1
 
 	local tile = GetMapSectorTile()
 	local radius = tile/2
@@ -134,7 +139,7 @@ function OnMsg.ChangeMapDone()
 			local havg = terrain.GetAreaHeight(center, radius)
 
 			if havg<(baseheight+3000) then
-				local step = 1000
+				local step = 2000
 				local initx=center:x()-radius+500
 				local inity=center:y()-radius+500
 				local lakepointx = {}
@@ -146,33 +151,27 @@ function OnMsg.ChangeMapDone()
  				 	lakepointx[i+1]=lakepointx[i]+step
   			 	 	lakepointy[i+1]=lakepointy[i]+step
 				end
-				local pointlist={}
 
-				for n=1,400 do
-					for j=1,20 do
-						for k=1,20 do
-						pointlist[n] = point(lakepointx[j], lakepointy[k])
-						pointlist[n] = pointlist[n]:SetTerrainZ()
+				sectorlowestpoints[sector.id] = point(lakepointx[1], lakepointy[1])
+				sectorlowestpoints[sector.id] = sectorlowestpoints[sector.id]:SetTerrainZ()
+
+				for j=1,20 do
+					for k=1,20 do
+						local pos = point(lakepointx[j], lakepointy[k])
+						pos = pos:SetTerrainZ()
+						if pos:z()<(baseheight-1000) then
+							if pos:z() < sectorlowestpoints[sector_id]:z() then
+						sectorlowestpoints[sector_id] = pos
+							end
 						end
 					end
-				end
-
- 		   		local min, height = 1, pointlist[1]:z()
- 		   		for i = 1, #pointlist do
-					if height>pointlist[i]:z() then
-  						min, height = i, pointlist[i]:z()
-					end
- 		   		end
-				if pointlist[min]:z()<(baseheight-1000) then
-					sectorlowestpoints[number] = pointlist[min]
-					number=number+1
 				end
 			end
 		end
 	end
-]]
 
-	for i,point in ipairs(lowest_points) do
+
+	for i,point in ipairs(sectorlowestpoints) do
 			SpawnRainLake(point)
 	end
 	Sleep(25) end, self)
