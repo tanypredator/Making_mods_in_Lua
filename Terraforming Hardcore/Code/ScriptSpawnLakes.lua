@@ -1,6 +1,5 @@
-function OnMsg.ChangeMapDone()
-	CreateGameTimeThread(function(self)
-	if not UICity then return end
+function GetMapBaseheight()
+--get map name
 	local MyMapName = FillRandomMapProps(nil, g_CurrentMapParams)
 	local baseheight = 10000
 	if MyMapName == "BlankBigCanyonCMix_01" then
@@ -76,61 +75,31 @@ function OnMsg.ChangeMapDone()
 	elseif MyMapName == "BlankBigTerraceCMix_20" then
  		baseheight = 7830
 	end
---[[	
-	local type = type
-	local GetMapSectorXY = GetMapSectorXY
-	local IsInMapPlayableArea = IsInMapPlayableArea
-	local point = point
-	local lowest_points
-
-local function GetLowestPointEachSector()
-	-- max the z of the default points
-	local max_point = point(0, 0, terrain.GetMapHeight())
-	-- and build a list of sectors with it
-	lowest_points = {}
-	local g_MapSectors = g_MapSectors
-
-	for sector in pairs(g_MapSectors) do
- 		if type(sector) ~= "number" then
-		lowest_points[sector.id] = max_point
- 		end
-	end
-
-	local width, height = terrain.GetMapSize()
-	local border = mapdata.PassBorder or 0
-
-	local width, height = ConstructableArea:sizexyz()
-	width = width / 1000
-	height = height / 1000
-
-	for x = 100, width do
- 		for y = 10, height do
- 			local x1000, y1000 = x * 1000, y * 1000
-            -- the area outside grids is counted as the nearest grid.
-			if IsInMapPlayableArea(x1000, y1000) then
-				local sector_id = GetMapSectorXY(x1000, y1000).id
-				local stored = lowest_points[sector_id]:z()
-				if stored then
-					local pos = point(x1000, y1000):SetTerrainZ()
-					if pos:z() < stored then
-						lowest_points[sector_id] = pos
-					end
-				end
-			end
-		end
-	end
-	return lowest_points
+return baseheight
 end
 
-local sectorlowestpoints = GetLowestPointEachSector()
-]]
+function GetMaxWaterlevel()
+local baseheight = GetMapBaseheight()
+local maxwaterlevel = baseheight - 1500
+local altitude = g_CurrentMapParams.Altitude
+	if altitude < 1500 then
+		maxwaterlevel = baseheight - altitude - 50
+	end
+return maxwaterlevel
+end
 
+function FindLowestPoints()
+	local baseheight = GetMapBaseheight()
+
+--table for lowest points in sectors
 	local sectorlowestpoints = {}
 
+--from Exploration.lua
 	local tile = GetMapSectorTile()
 	local radius = tile/2
 	local sectors = g_MapSectors
 
+--scan through sectors
 	for xsec = 1, const.SectorCount do
 		local sectors = sectors[xsec]
 		for ysec = 1, const.SectorCount do
@@ -138,6 +107,7 @@ local sectorlowestpoints = GetLowestPointEachSector()
 			local center = sector.area:Center()
 			local havg = terrain.GetAreaHeight(center, radius)
 
+--skip high sectors, in each low sector scan through "hexes" with step of about 2 hexes
 			if havg<(baseheight+3000) then
 				local step = 2000
 				local initx=center:x()-radius+500
@@ -155,14 +125,13 @@ local sectorlowestpoints = GetLowestPointEachSector()
 				sectorlowestpoints[sector.id] = point(lakepointx[1], lakepointy[1])
 				sectorlowestpoints[sector.id] = sectorlowestpoints[sector.id]:SetTerrainZ()
 
+--find point with minimal z and put in into sectorlowestpoints
 				for j=1,20 do
 					for k=1,20 do
 						local pos = point(lakepointx[j], lakepointy[k])
 						pos = pos:SetTerrainZ()
-						if pos:z()<(baseheight-1000) then
-							if pos:z() < sectorlowestpoints[sector.id]:z() then
+						if pos:z() < sectorlowestpoints[sector.id]:z() then
 						sectorlowestpoints[sector.id] = pos
-							end
 						end
 					end
 				end
@@ -170,9 +139,40 @@ local sectorlowestpoints = GetLowestPointEachSector()
 		end
 	end
 
+return sectorlowestpoints
+end
 
-	for i,point in ipairs(sectorlowestpoints) do
-			SpawnRainLake(point)
+GlobalVar("MinWaterLevel", 7000)
+
+--[[function GetMinWaterLevel()]]
+
+function OnMsg.ChangeMapDone()
+	local baseheight = GetMapBaseheight()
+	local sectorlowestpoints = FindLowestPoints()
+	local minmin = baseheight-3000
+	for i in pairs(sectorlowestpoints) do
+		if sectorlowestpoints[i]:z() < minmin then
+				minmin = sectorlowestpoints[i]:z()-500
+		end
 	end
-	Sleep(25) end, self)
+	MinWaterLevel = minmin
+end
+
+function OnMsg.ChangeMapDone()
+	CreateGameTimeThread(function()
+  -- the first msg box closed is the welcome to mars one
+  WaitMsg("MessageBoxClosed")
+
+	if not UICity then return end
+	local sectorlowestpoints = FindLowestPoints()
+	local baseheight = GetMapBaseheight()
+
+--in each sector spawn a lake in the lowest point if it is low enough.
+	for i in pairs(sectorlowestpoints) do
+		if sectorlowestpoints[i]:z()<(baseheight-2000) then
+			SpawnRainLake(sectorlowestpoints[i])
+		end
+	end
+
+	end)
 end

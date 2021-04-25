@@ -84,16 +84,14 @@ end
 
 function RainLakeSpawned:GameInit()
 	self:SetColorModifier(-12374251)
-
+--[[	local maxwaterlevel = GetMaxWaterlevel()]]
 	-- init water level
 	self.water_obj = WaterFill:new()
 	local pos = self:GetPos()
-	self.level_min = pos:z()-50
-	self.level_max = pos:z()+1000
-	self.water_obj:SetPos(pos)
+	self.level_min = MinWaterLevel
+	self.level_max = GetMaxWaterlevel()
+	self.water_obj:SetPos(pos:x(), pos:y(), self.level_min)
 	ApplyAllWaterObjects()
---[[  local posnew = pos:AddZ(-500)
-  self:SetPos(posnew)]]
 	self:UpdateVisuals()
 end
 
@@ -134,19 +132,6 @@ function RainLakeSpawned:SetVolume(vol)
   self.volume = new_volume
   Msg("LakeVolumeChanged", self)
   self:UpdateVisuals()
-if Terraforming.Temperature < 25000 then
-	self.terraforming_boost_sol = 0
-elseif Terraforming.Temperature >= 25000 then
-	if self.volume < 10000 then
-	self.terraforming_boost_sol = 0
-	elseif self.volume >= 10000 and self.volume < 30000 then
-	self.terraforming_boost_sol = 20
-	elseif self.volume >= 30000 and self.volume < 60000 then
-	self.terraforming_boost_sol = 40
-	elseif self.volume >= 60000 then
-	self.terraforming_boost_sol = 60
-	end
-end
   RebuildInfopanel(self)
   return true
 end
