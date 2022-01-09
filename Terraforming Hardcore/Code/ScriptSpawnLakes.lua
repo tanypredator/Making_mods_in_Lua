@@ -88,16 +88,16 @@ local altitude = g_CurrentMapParams.Altitude
 return maxwaterlevel
 end
 
-function FindLowestPoints()
+function FindLowestPoints(city)
 	local baseheight = GetMapBaseheight()
 
 --table for lowest points in sectors
 	local sectorlowestpoints = {}
 
 --from Exploration.lua
-	local tile = GetMapSectorTile()
+	local tile = GetMapSectorTile(city.map_id)
 	local radius = tile/2
-	local sectors = g_MapSectors
+	local sectors = city.MapSectors
 
 --scan through sectors
 	for xsec = 1, const.SectorCount do
@@ -142,13 +142,12 @@ function FindLowestPoints()
 return sectorlowestpoints
 end
 
-GlobalVar("MinWaterLevel", 7000)
-
---[[function GetMinWaterLevel()]]
+GlobalVar("MinWaterLevel", 6000)
 
 function OnMsg.ChangeMapDone()
+	local city = UICity
 	local baseheight = GetMapBaseheight()
-	local sectorlowestpoints = FindLowestPoints()
+	local sectorlowestpoints = FindLowestPoints(city)
 	local minmin = baseheight-3000
 	for i in pairs(sectorlowestpoints) do
 		if sectorlowestpoints[i]:z() < minmin then
@@ -156,15 +155,17 @@ function OnMsg.ChangeMapDone()
 		end
 	end
 	MinWaterLevel = minmin
+
 end
 
 function OnMsg.ChangeMapDone()
+	local city = UICity
 	CreateGameTimeThread(function()
   -- the first msg box closed is the welcome to mars one
   WaitMsg("MessageBoxClosed")
 
 	if not UICity then return end
-	local sectorlowestpoints = FindLowestPoints()
+	local sectorlowestpoints = FindLowestPoints(city)
 	local baseheight = GetMapBaseheight()
 
 --in each sector spawn a lake in the lowest point if it is low enough.
